@@ -23,7 +23,7 @@ def dicom_dataset_tags_extractor(files):
             else:
                 original_tags.update(
                     {
-                        key_j: {dataset_dict[key_j]} if dataset_dict[key_j] != None else 'None1'
+                        key_j: {dataset_dict[key_j]} if dataset_dict[key_j] != None else 'None'
                     }
                 )
     for key_i in original_tags.keys():
