@@ -98,12 +98,12 @@ if __name__ == '__main__':
     a_dict = dicom_dataset_tags_extractor(original_files)
     b_dict = dicom_dataset_tags_extractor(anonymized_files)
 
-    print('******* Разница в Исследованиях *******')
+    print('\n******* Разница в Исследованиях *******\n')
     for diff in list(dictdiffer.diff(a_dict, b_dict)):
         print(diff)
 
     if search_list != '':
-        print('******* Поиск по значениям ('+search_list+') *******')
+        print('\n******* Поиск по значениям ('+search_list+') *******\n')
         for key in b_dict.keys():
             if b_dict[key][1:-1] in search_list and b_dict[key][1:-1] != '':
                 print(key, b_dict[key])
