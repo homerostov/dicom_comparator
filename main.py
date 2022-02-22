@@ -102,8 +102,8 @@ if __name__ == '__main__':
     for diff in list(dictdiffer.diff(a_dict, b_dict)):
         print(diff)
 
-
-    print('******* Поиск по значениям ('+search_list+') *******')
-    for key in b_dict.keys():
-        if b_dict[key][1:-1] in search_list and b_dict[key][1:-1] != '':
-            print(key, b_dict[key])
+    if search_list != '':
+        print('******* Поиск по значениям ('+search_list+') *******')
+        for key in b_dict.keys():
+            if b_dict[key][1:-1] in search_list and b_dict[key][1:-1] != '':
+                print(key, b_dict[key])
