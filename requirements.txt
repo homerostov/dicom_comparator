@@ -1,2 +1,2 @@
 pydicom
-dictdiffer
+json2table
