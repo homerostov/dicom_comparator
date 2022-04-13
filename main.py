@@ -144,7 +144,7 @@ if __name__ == '__main__':
 
         i += 1
 
-    final_table_html = codecs.open('html' + table_name + '.html', 'a', 'utf-8-sig')
+    final_table_html = codecs.open('html/' + table_name + '.html', 'a', 'utf-8-sig')
     build_direction = "LEFT_TO_RIGHT"
     table_attributes = {"style": "width:100%", "border": 1}
     final_table_html.write(json2table.convert(final_dict,
