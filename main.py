@@ -104,7 +104,9 @@ if __name__ == '__main__':
                       '._' not in os.path.splitext(f)[0] and '.txt' not in os.path.splitext(f)[1]]
 
     anonymized_files = [os.path.join(dp, f) for dp, dn, filenames in os.walk('anonymized_dicom') for f in filenames if
-                        '._' not in os.path.splitext(f)[0] and '.txt' not in os.path.splitext(f)[1]]
+                        '._' not in os.path.splitext(f)[0]
+                        and '.txt' not in os.path.splitext(f)[1]
+                        and '.json' not in os.path.splitext(f)[1]]
     doc_file = []
     sr_file = []
     ai_files = []
