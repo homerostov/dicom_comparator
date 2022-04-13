@@ -151,7 +151,7 @@ if __name__ == '__main__':
     table_attributes = {"style": "width:100%", "border": 1}
     final_table_html.write(json2table.convert(final_dict,
                                               build_direction=build_direction,
-                                              # table_attributes=table_attributes
+                                              table_attributes=table_attributes
                                               )
                            )
     final_table_html.close()
