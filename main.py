@@ -82,6 +82,8 @@ def _convert_value(v):
 
 
 if __name__ == '__main__':
+    script, original_file, anonymized_file, table_name = argv
+
     try:
         shutil.rmtree('original_dicom')
     except:
@@ -90,8 +92,11 @@ if __name__ == '__main__':
         shutil.rmtree('anonymized_dicom')
     except:
         pass
+    try:
+        os.remove('html/' + table_name + '.html')
+    except:
+        pass
 
-    script, original_file, anonymized_file, table_name = argv
 
     os.mkdir('original_dicom')
     os.mkdir('anonymized_dicom')
