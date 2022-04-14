@@ -27,7 +27,7 @@ def dicom_dataset_tags_extractor(files, include_tags_from_all_files=False):
             else:
                 original_tags.update(
                     {
-                        key_j: {dataset_dict[key_j]} if dataset_dict[key_j] != None else ' '
+                        key_j: {dataset_dict[key_j]} if dataset_dict[key_j] not in (None, 'None') else ' '
                     }
                 )
     for key_i in original_tags.keys():
@@ -110,7 +110,8 @@ if __name__ == '__main__':
         zip_ref.extractall('anonymized_dicom')
 
     original_files = [os.path.join(dp, f) for dp, dn, filenames in os.walk('original_dicom') for f in filenames if
-                      '._' not in os.path.splitext(f)[0] and '.txt' not in os.path.splitext(f)[1]]
+                      '._' not in os.path.splitext(f)[0]
+                      and '.txt' not in os.path.splitext(f)[1]]
 
     anonymized_files = [os.path.join(dp, f) for dp, dn, filenames in os.walk('anonymized_dicom') for f in filenames if
                         '._' not in os.path.splitext(f)[0]
