@@ -17,7 +17,7 @@ def dicom_dataset_tags_extractor(files, include_tags_from_all_files=False):
         for key_j in dataset_dict.keys():
             original_tags.update(
                 {
-                    key_j: {dataset_dict[key_j]} if dataset_dict[key_j] not in (None, 'None') else ' '
+                    key_j: {dataset_dict[key_j]} if dataset_dict[key_j] not in (None, 'None') else '_NULL'
                 }
             )
     for key_i in original_tags.keys():
@@ -142,10 +142,10 @@ if __name__ == '__main__':
         final_dict['tags'][i].update(
             {
                 'key': key,
-                'input': input_dict[key] if key in input_dict.keys() else ' ',
-                'ai': ai_dict[key] if key in ai_dict.keys() else ' ',
-                'doc': doc_dict[key] if key in doc_dict.keys() else ' ',
-                'sr': sr_dict[key] if key in sr_dict.keys() else ' '
+                'input': input_dict[key] if key in input_dict.keys() else '_TAG_NOT_FOUND',
+                'ai': ai_dict[key] if key in ai_dict.keys() else '_TAG_NOT_FOUND',
+                'doc': doc_dict[key] if key in doc_dict.keys() else '_TAG_NOT_FOUND',
+                'sr': sr_dict[key] if key in sr_dict.keys() else '_TAG_NOT_FOUND'
             }
         )
 
