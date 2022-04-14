@@ -170,11 +170,11 @@ if __name__ == '__main__':
         'key,input,ai,doc,sr\n')
     for i in range(len(final_dict['tags'])):
         final_table_csv.write(
-            '"' + str(final_dict['tags'][i]['key']).replace('"', '') + '",' +\
-            '"' + str(final_dict['tags'][i]['input']).replace('"', '') + '",' +\
-            '"' + str(final_dict['tags'][i]['ai']).replace('"', '') + '",' +\
-            '"' + str(final_dict['tags'][i]['doc']).replace('"', '') + '",' +\
-            '"' + str(final_dict['tags'][i]['sr']).replace('"', '') +'"\n'
+            '"' + str(final_dict['tags'][i]['key']).replace('"', '').replace("'", '') + '",' +\
+            '"' + str(final_dict['tags'][i]['input']).replace('"', '').replace("'", '') + '",' +\
+            '"' + str(final_dict['tags'][i]['ai']).replace('"', '').replace("'", '') + '",' +\
+            '"' + str(final_dict['tags'][i]['doc']).replace('"', '').replace("'", '') + '",' +\
+            '"' + str(final_dict['tags'][i]['sr']).replace('"', '').replace("'", '') +'"\n'
         )
     final_table_csv.close()
 
