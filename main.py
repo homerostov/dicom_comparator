@@ -96,6 +96,10 @@ if __name__ == '__main__':
         os.remove('html/' + table_name + '.html')
     except:
         pass
+    try:
+        os.remove('csv/' + table_name + '.csv')
+    except:
+        pass
 
 
     os.mkdir('original_dicom')
@@ -141,7 +145,7 @@ if __name__ == '__main__':
         final_dict['tags'].append({})
         final_dict['tags'][i].update(
             {
-                'key' : key,
+                'key': key,
                 'input': input_dict[key] if key in input_dict.keys() else ' ',
                 'ai': ai_dict[key] if key in ai_dict.keys() else ' ',
                 'doc': doc_dict[key] if key in doc_dict.keys() else ' ',
@@ -161,4 +165,16 @@ if __name__ == '__main__':
                            )
     final_table_html.close()
 
+    final_table_csv = codecs.open('csv/' + table_name + '.csv', 'a', 'utf-8-sig')
+    final_table_csv.write(
+        'key,input,ai,doc,sr\n')
+    for i in range(len(final_dict['tags'])):
+        final_table_csv.write(
+            '"' + str(final_dict['tags'][i]['key']) + '",' +\
+            '"' + str(final_dict['tags'][i]['input']) + '",' +\
+            '"' + str(final_dict['tags'][i]['ai']) + '",' +\
+            '"' + str(final_dict['tags'][i]['doc'])+ '",' +\
+            '"' + str(final_dict['tags'][i]['sr']) +'"\n'
+        )
+    final_table_csv.close()
 
