@@ -15,21 +15,11 @@ def dicom_dataset_tags_extractor(files, include_tags_from_all_files=False):
         dataset = pydicom.dcmread(file, force=True)
         dataset_dict = dicom_dataset_to_dict(dataset)
         for key_j in dataset_dict.keys():
-            if key_j in original_tags.keys():
-                if original_tags[key_j] != dataset_dict[key_j]:
-                    new_value = original_tags[key_j]
-                    new_value.add(dataset_dict[key_j])
-                    original_tags.update(
-                        {
-                            key_j: new_value
-                        }
-                    )
-            else:
-                original_tags.update(
-                    {
-                        key_j: {dataset_dict[key_j]} if dataset_dict[key_j] not in (None, 'None') else ' '
-                    }
-                )
+            original_tags.update(
+                {
+                    key_j: {dataset_dict[key_j]} if dataset_dict[key_j] not in (None, 'None') else ' '
+                }
+            )
     for key_i in original_tags.keys():
         str_value = str(original_tags[key_i])[1:-1]
         original_tags.update(
@@ -117,6 +107,10 @@ if __name__ == '__main__':
                         '._' not in os.path.splitext(f)[0]
                         and '.txt' not in os.path.splitext(f)[1]
                         and '.json' not in os.path.splitext(f)[1]]
+
+    input_dict = dicom_dataset_tags_extractor(original_files)
+    output_dict = dicom_dataset_tags_extractor(anonymized_files)
+
     doc_file = []
     sr_file = []
     ai_files = []
@@ -129,7 +123,8 @@ if __name__ == '__main__':
             sr_file.append(file)
         else:
             ai_files.append(file)
-    input_dict = dicom_dataset_tags_extractor(original_files)
+
+
 
     doc_dict = dicom_dataset_tags_extractor(doc_file) if doc_file else {'file': 'DOC file not exist'}
     sr_dict = dicom_dataset_tags_extractor(sr_file) if sr_file else {'file': 'SR file not exist'}
@@ -179,3 +174,20 @@ if __name__ == '__main__':
         )
     final_table_csv.close()
 
+    for key in input_dict.keys():
+        if key in output_dict.keys():
+            if input_dict[key] == output_dict[key]:
+                print('not change: ' + str(key) + str(input_dict[key]))
+
+    for key in input_dict.keys():
+        if key in output_dict.keys():
+            if input_dict[key] != output_dict[key]:
+                print('change: '+ str(key) + input_dict[key] + ' -> ' + str(output_dict[key]))
+
+    for key in input_dict.keys():
+        if key not in output_dict.keys():
+            print('remove: ' + str(key) + str(input_dict[key]))
+
+    for key in output_dict.keys():
+        if key not in input_dict.keys():
+            print('add: ' + str(key) + str(output_dict[key]))
