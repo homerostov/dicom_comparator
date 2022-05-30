@@ -169,7 +169,7 @@ if __name__ == '__main__':
 
     for i in range(len(final_dict['tags'])):
         # print(str(final_dict['tags'][i]['key']).replace(', ',','))
-        dicom_tag_name = data[str(final_dict['tags'][i]['key']).replace(', ',',')]['Name'] if str(final_dict['tags'][i]['key']).replace(', ',',') in data.keys() else "not_found"
+        dicom_tag_name = data[str(final_dict['tags'][i]['key']).replace(', ',',')]['Name'] if str(final_dict['tags'][i]['key']).upper().replace(', ',',') in data.keys() else "not_found"
         final_table_csv.write(
             '"' + str(final_dict['tags'][i]['key']).replace('"', '').replace("'", '') + '",' + \
             '"' + dicom_tag_name + '",' + \
