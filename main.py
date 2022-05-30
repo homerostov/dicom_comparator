@@ -165,18 +165,18 @@ if __name__ == '__main__':
     data = json.load(open('dicom_tags.json'))
     final_table_csv = codecs.open('csv/' + table_name + '.csv', 'a', 'utf-8-sig')
     final_table_csv.write(
-        'key,input,ai,doc,sr,tag_name\n')
+        'key,tag_name,input,ai,doc,sr\n')
 
     for i in range(len(final_dict['tags'])):
         # print(str(final_dict['tags'][i]['key']).replace(', ',','))
         dicom_tag_name = data[str(final_dict['tags'][i]['key']).replace(', ',',')]['Name'] if str(final_dict['tags'][i]['key']).replace(', ',',') in data.keys() else "not_found"
         final_table_csv.write(
-            '"' + str(final_dict['tags'][i]['key']).replace('"', '').replace("'", '') + '",' +\
-            '"' + str(final_dict['tags'][i]['input']).replace('"', '').replace("'", '') + '",' +\
+            '"' + str(final_dict['tags'][i]['key']).replace('"', '').replace("'", '') + '",' + \
+            '"' + dicom_tag_name + '",' + \
+            '"' + str(final_dict['tags'][ i]['input']).replace('"', '').replace("'", '') + '",' +\
             '"' + str(final_dict['tags'][i]['ai']).replace('"', '').replace("'", '') + '",' +\
             '"' + str(final_dict['tags'][i]['doc']).replace('"', '').replace("'", '') + '",' +\
-            '"' + str(final_dict['tags'][i]['sr']).replace('"', '').replace("'", '') +'",' + \
-            '"' + dicom_tag_name +'"\n'
+            '"' + str(final_dict['tags'][i]['sr']).replace('"', '').replace("'", '') + '"\n'
         )
     final_table_csv.close()
     final_output = set()
