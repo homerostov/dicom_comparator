@@ -7,6 +7,7 @@ from sys import argv
 import shutil
 import json2table
 import codecs
+import json
 
 
 def dicom_dataset_tags_extractor(files, include_tags_from_all_files=False):
@@ -161,33 +162,34 @@ if __name__ == '__main__':
                            )
     final_table_html.close()
 
+    data = json.load(open('dicom_tags.json'))
     final_table_csv = codecs.open('csv/' + table_name + '.csv', 'a', 'utf-8-sig')
     final_table_csv.write(
-        'key,input,ai,doc,sr\n')
+        'key,input,ai,doc,sr,tag_name\n')
+
     for i in range(len(final_dict['tags'])):
         final_table_csv.write(
             '"' + str(final_dict['tags'][i]['key']).replace('"', '').replace("'", '') + '",' +\
             '"' + str(final_dict['tags'][i]['input']).replace('"', '').replace("'", '') + '",' +\
             '"' + str(final_dict['tags'][i]['ai']).replace('"', '').replace("'", '') + '",' +\
             '"' + str(final_dict['tags'][i]['doc']).replace('"', '').replace("'", '') + '",' +\
-            '"' + str(final_dict['tags'][i]['sr']).replace('"', '').replace("'", '') +'"\n'
+            '"' + str(final_dict['tags'][i]['sr']).replace('"', '').replace("'", '') +'",' + \
+            '"' + data[final_dict['tags'][i]['key']]['Name'] if final_dict['tags'][i]['key'] in data.keys() else "not_found"+'"\n'
         )
     final_table_csv.close()
-
+    final_output = set()
     for key in input_dict.keys():
         if key in output_dict.keys():
             if input_dict[key] == output_dict[key]:
-                print('not change: ' + str(key) + str(input_dict[key]))
-
-    for key in input_dict.keys():
-        if key in output_dict.keys():
-            if input_dict[key] != output_dict[key]:
-                print('change: '+ str(key) + input_dict[key] + ' -> ' + str(output_dict[key]))
-
-    for key in input_dict.keys():
-        if key not in output_dict.keys():
-            print('remove: ' + str(key) + str(input_dict[key]))
-
+                final_output.add('not change: ' + str(key) + str(input_dict[key]))
+                # print('not change: ' + str(key) + str(input_dict[key]))
+            else:
+                final_output.add('change: '+ str(key) + input_dict[key] + ' -> ' + str(output_dict[key]))
+                # print('change: '+ str(key) + input_dict[key] + ' -> ' + str(output_dict[key]))
+        else:
+            final_output.add('remove: ' + str(key) + str(input_dict[key]))
+            # print('remove: ' + str(key) + str(input_dict[key]))
     for key in output_dict.keys():
         if key not in input_dict.keys():
-            print('add: ' + str(key) + str(output_dict[key]))
+            final_output.add('add: ' + str(key) + str(output_dict[key]))
+    print(sorted(final_dict))
