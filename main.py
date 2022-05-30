@@ -168,13 +168,15 @@ if __name__ == '__main__':
         'key,input,ai,doc,sr,tag_name\n')
 
     for i in range(len(final_dict['tags'])):
+        # print(str(final_dict['tags'][i]['key']).replace(', ',','))
+        dicom_tag_name = data[str(final_dict['tags'][i]['key']).replace(', ',',')]['Name'] if str(final_dict['tags'][i]['key']).replace(', ',',') in data.keys() else "not_found"
         final_table_csv.write(
             '"' + str(final_dict['tags'][i]['key']).replace('"', '').replace("'", '') + '",' +\
             '"' + str(final_dict['tags'][i]['input']).replace('"', '').replace("'", '') + '",' +\
             '"' + str(final_dict['tags'][i]['ai']).replace('"', '').replace("'", '') + '",' +\
             '"' + str(final_dict['tags'][i]['doc']).replace('"', '').replace("'", '') + '",' +\
             '"' + str(final_dict['tags'][i]['sr']).replace('"', '').replace("'", '') +'",' + \
-            '"' + data[final_dict['tags'][i]['key']]['Name'] if final_dict['tags'][i]['key'] in data.keys() else "not_found"+'"\n'
+            '"' + dicom_tag_name +'"\n'
         )
     final_table_csv.close()
     final_output = set()
